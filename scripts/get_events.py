@@ -32,7 +32,7 @@ def get_cf_response(url):
     if os.name == 'nt':
         # Need to escape the URL ampersands when running on Windows
         url = url.replace('&','^&')
-        p = subprocess.run(['cf7.exe', 'curl', url], stdout=subprocess.PIPE, shell=True)
+        p = subprocess.run(['cf.exe', 'curl', url], stdout=subprocess.PIPE, shell=True)
     else:
         p = subprocess.run(['cf', 'curl', url], stdout=subprocess.PIPE)
     if p.returncode == 1:
