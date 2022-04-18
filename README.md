@@ -1,44 +1,32 @@
-# Cloud Foundry Audit Events
+# Cloud.gov Audit Events
 
-This repository contains a script and associated GitHub Action that can be used to automatically export [Cloud Foundry Audit Events](https://docs.cloudfoundry.org/running/managing-cf/audit-events.html) on a scheduled basis. It also contains a script that can create an MS Excel document based on the data obtained from the automated script.
+This repository contains a [run script](scripts/run) that can be used to export cloud.gov audit events and create an Audit Report of the events in an MS Excel document.
 
-## Reason for its creation
+## Background
 
-The Cloud Foundry instance we're using (cloud.gov) is only setup to retain [Cloud Foundry Audit Events](https://docs.cloudfoundry.org/running/managing-cf/audit-events.html) for 31 days. Based on this, we needed a way to make sure audit events were being exported and saved elsewhere before they expired. While our configuration of the GitHub Action is currently setup to run every 24 hours, other users can easily adjust it to suit their needs. The script is smart enough to know when it last ran to make sure all events are captured and not duplicated. 
+The Cloud Foundry instance we're using, cloud.gov, is only setup to retain [Cloud Foundry Audit Events](https://docs.cloudfoundry.org/running/managing-cf/audit-events.html) for 31 days. Based on this, we needed a way to export and audit events elsewhere before they expired. The [get events script](scripts/get_events.py) is used to export cloud.gov audit events ([see Cloud Foundry Audit Events](https://docs.cloudfoundry.org/running/managing-cf/audit-events.html)). The [audit event reporter script](scripts/audit_event_reporter.py) is used to create an MS Excel document based on data from the [get events script](scripts/get_events.py).
 
-## Initial goals
+The [get events script](scripts/get_events.py) is smart enough to know when it last ran to make sure all events are captured and not duplicated. Other users can easily adjust these scripts to suit their needs. For example, a past iteration of this project used GitHub Actions to run the [get events script](scripts/get_events.py) every 24 hours.
 
- - Automate Cloud Foundry Audit Event extraction to support auditing and archiving requirements.
- - Make the code simple to understand to instill trust in its usage.
- - Avoid using 3rd party dependencies if possible (i.e., focus on using base Python features).
- - Provide a solution that can be easily enhanced as time allows.
- - Ensure audit event data is not lost or duplicated.
- - Make it easy for auditors to review the audit events.
- 
-## Suggested steps to setup
+## Setup
+ 1. Clone repository to your local machine
+ 2. Update the [get events script](scripts/get_events.py) cf.exe version to your local cf version (e.g., cf7.exe), as needed
+ 3. Update the [run script](scripts/run):
+      - CF_ORG="INSERT-ORG-NAME"
+      - CF_SPACE="INSERT-SPACE-NAME"
+      - audit event reporter script input filename (YYYY-MM.json) e.g., 2022-04.json
+      - audit event reporter script output filename path e.g., C:\username\folder\AuditReport-2022-04.xlsx  
 
- 1. Copy this code into a private GitHub repository you own.
- 2. Configure the GitHub Action schedule setting (located in the GitHub Action .yml) to match your requirement. The default is set to run every 24 hours. Information on changing the schedule can be found [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
- 3. Setup the the two required Action Secrets ( *CG_USERNAME* and *CG_PASSWORD*). The values for these secrets are explained [here](https://cloud.gov/docs/services/cloud-gov-service-account/). For help setting up Action Secrets, see [Set up Secrets in GitHub Action workflows](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md). 
+## Get Events and Audit Report (i.e., MS Excel document)
 
-## Repository structure once the GitHub Action executes
+ Navigate to the scripts folder and execute the [run script](scripts/run). If setup correctly, a:
+ - YYYY-MM.json will be created in the data > organization name folder and
+ - MS Excel document will be created in the location of the audit event reporter script's output filename path
 
-<p align="center">
-      <img height="100%" width="100%" src="/docs/img/folder_tree.png" alt="Screenshot of repo folder structure after GitHub Action execution">
-</p>
+```
+bash run
+```
 
-## How to create an audit report (i.e., MS Excel based)
+### Disclaimer
 
- Navigate to the scripts folder and execute the *audit_event_reporter.py* script. A usage example is below:
-
-**Example:**
-
-python audit_event_reporter.py -i C:\Cooper\cloudfoundry_audit_events\data\test-org\events\2021-12.json -o C:\Cooper\Desktop\AuditReport-2021-12.xlsx
-
-**Usage**
- - **input_file** - file path to the .json file holding audit events created but the GitHub Action.
- - **output_file** - file path to where to save the MS Excel based results to.
-
-## Disclaimer
-
-The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use.  EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information.  Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA.  The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.
