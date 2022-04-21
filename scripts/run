@@ -6,6 +6,7 @@ set -e
 
     CF_ORG="INSERT-ORG-NAME"
     CF_SPACE="INSERT-SPACE-NAME"
+    YYYYMM="YYYY-MM"
 
 echo "Have you already logged into cloud.gov with a passcode? (y/n)"
 read input
@@ -15,7 +16,7 @@ if [ $input == "y" ]; then
     
     cf target -o $CF_ORG -s $CF_SPACE
 
-    echo "Logged into cloud.gov"
+    echo "Targeting org and space in cloud.gov"
 
     echo "Running get_events.py..."
     python get_events.py $CF_ORG
@@ -25,8 +26,8 @@ if [ $input == "y" ]; then
     #Run audit_events_reporter.py
     ## input_file - file path to the .json file holding audit events created but the GitHub Action
     ## output_file - file path to where to save the MS Excel based results to
-    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\YYYY-MM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-YYYY-MM.xlsx
-
+    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-$YYYYMM.xlsx
+    
     echo "Completed audit_events.py..."
 
     echo "Run script complete."
@@ -50,7 +51,7 @@ else if [ $input == "n" ]; then
     #Run audit_events_reporter.py
     ## input_file - file path to the .json file holding audit events created but the GitHub Action
     ## output_file - file path to where to save the MS Excel based results to
-    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\YYYY-MM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-YYYY-MM.xlsx
+    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-$YYYYMM.xlsx
 
     echo "Completed audit_events.py..."
 
