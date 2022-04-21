@@ -14,13 +14,12 @@ The [get events script](scripts/get_events.py) is smart enough to know when it l
  3. Update the [run script](scripts/run):
       - CF_ORG="INSERT-ORG-NAME"
       - CF_SPACE="INSERT-SPACE-NAME"
-      - audit event reporter script input filename (YYYY-MM.json) e.g., 2022-04.json
-      - audit event reporter script output filename path e.g., C:\username\folder\AuditReport-2022-04.xlsx  
+      - YYYYMM="YEAR-MM"
 
 ## Get Events and Audit Report (i.e., MS Excel document)
 
  Navigate to the scripts folder and execute the [run script](scripts/run). If setup correctly, a:
- - YYYY-MM.json will be created in the data > organization name folder and
+ - YYYY-MM.json will be created in the data > organization-name folder and
  - MS Excel document will be created in the location of the audit event reporter script's output filename path
 
 ```
