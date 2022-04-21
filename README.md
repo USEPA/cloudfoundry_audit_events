@@ -10,8 +10,9 @@ The [get events script](scripts/get_events.py) is smart enough to know when it l
 
 ## Setup
  1. Clone repository to your local machine
- 2. Update the [get events script](scripts/get_events.py) cf.exe version to your local cf version (e.g., cf7.exe), as needed
- 3. Update the [run script](scripts/run):
+ 2. pip install requirements.txt (i.e., pip install -r requirements.txt)
+ 3. Update the [get events script](scripts/get_events.py) cf.exe version to your local cf version (e.g., cf7.exe), as needed
+ 4. Update the [run script](scripts/run):
       - CF_ORG="INSERT-ORG-NAME"
       - CF_SPACE="INSERT-SPACE-NAME"
       - YYYYMM="YEAR-MM"
