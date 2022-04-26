@@ -26,9 +26,12 @@ if [ $input == "y" ]; then
     #Run audit_events_reporter.py
     ## input_file - file path to the .json file holding audit events created but the GitHub Action
     ## output_file - file path to where to save the MS Excel based results to
-    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-$YYYYMM.xlsx
+    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o AuditReport-$YYYYMM.xlsx
     
-    echo "Completed audit_events.py..."
+    echo "Completed audit_events reporter.py..."
+
+    echo "Starting cleanup_report.py ..."
+    python cleanup_report.py $CF_ORG $YYYYMM
 
     echo "Run script complete."
     exit
@@ -51,9 +54,12 @@ else if [ $input == "n" ]; then
     #Run audit_events_reporter.py
     ## input_file - file path to the .json file holding audit events created but the GitHub Action
     ## output_file - file path to where to save the MS Excel based results to
-    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o C:\Users\username\cloudfoundry_audit_events\AuditReport-$YYYYMM.xlsx
+    python audit_event_reporter.py -i .\\data\\$CF_ORG\\events\\$YYYYMM.json -o AuditReport-$YYYYMM.xlsx
 
     echo "Completed audit_events.py..."
+
+    echo "Starting cleanup_report.py ..."
+    python cleanup_report.py $CF_ORG $YYYYMM
 
     echo "Run script complete."
     exit
