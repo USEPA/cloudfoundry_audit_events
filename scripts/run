@@ -31,7 +31,7 @@ if [ $input == "y" ]; then
     echo "Completed audit_events reporter.py..."
 
     echo "Starting cleanup_report.py ..."
-    python cleanup_report.py $CF_ORG $YYYYMM
+    python cleanup_report.py $CF_ORG $CF_SPACE $YYYYMM
 
     echo "Run script complete."
     exit
@@ -59,7 +59,7 @@ else if [ $input == "n" ]; then
     echo "Completed audit_events.py..."
 
     echo "Starting cleanup_report.py ..."
-    python cleanup_report.py $CF_ORG $YYYYMM
+    python cleanup_report.py $CF_ORG $CF_SPACE $YYYYMM
 
     echo "Run script complete."
     exit
