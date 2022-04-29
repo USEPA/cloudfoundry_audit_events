@@ -10,6 +10,8 @@ path = "./AuditReport-2022-04.xlsx"
 wb = openpyxl.load_workbook(path.strip())
 sheetlist = wb.sheetnames
 
+# Add filter to the worksheets
+
 # All Events - sheet1
 sheet1 = wb[sheetlist[0]]
 sheet1.auto_filter.ref = sheet1.dimensions
@@ -34,9 +36,23 @@ sheet5.auto_filter.ref = sheet5.dimensions
 sheet6 = wb[sheetlist[5]]
 sheet6.auto_filter.ref = sheet6.dimensions
 
+# App Events - sheet7
+sheet7 = wb[sheetlist[6]]
+sheet7.auto_filter.ref = sheet7.dimensions
+
+# ssh Events - sheet8
+sheet8 = wb[sheetlist[7]]
+sheet8.auto_filter.ref = sheet8.dimensions
+
+# Space Events - sheet9
+sheet9 = wb[sheetlist[8]]
+sheet9.auto_filter.ref = sheet9.dimensions
+
 print("List of Sheet names: ", sheetlist)
 print("Sheet 1: ", sheet1)
 print("Max row before removal: ", sheet1.max_row)
+
+# Cleanup rows in all sheets that do not match CF_ORG or CF_SPACE
 
 # Cleanup All Events - sheet1
 rownumber = 1
@@ -85,6 +101,32 @@ for row in sheet6.iter_rows(min_row=1, max_row=sheet6.max_row, min_col=1, max_co
 for i in range(sheet6.max_row, 1, -1):
     if sheet6.cell(row=i, column=2).value != sys.argv[1] or sheet6.cell(row=i, column=3).value != sys.argv[2]:
         sheet6.delete_rows(i, 1)
+
+# Cleanup App Events - sheet7
+rownumber = 1
+for row in sheet7.iter_rows(min_row=1, max_row=sheet7.max_row, min_col=1, max_col=sheet7.max_column, values_only=True):
+    rownumber += 1
+for i in range(sheet7.max_row, 1, -1):
+    if sheet7.cell(row=i, column=2).value != sys.argv[1] or sheet7.cell(row=i, column=3).value != sys.argv[2]:
+        sheet7.delete_rows(i, 1)
+
+# Cleanup ssh Events - sheet8
+rownumber = 1
+for row in sheet8.iter_rows(min_row=1, max_row=sheet8.max_row, min_col=1, max_col=sheet8.max_column, values_only=True):
+    rownumber += 1
+for i in range(sheet8.max_row, 1, -1):
+    if sheet8.cell(row=i, column=2).value != sys.argv[1] or sheet8.cell(row=i, column=3).value != sys.argv[2]:
+        sheet8.delete_rows(i, 1)
+
+# Cleanup Space Events - sheet9
+rownumber = 1
+for row in sheet9.iter_rows(min_row=1, max_row=sheet9.max_row, min_col=1, max_col=sheet9.max_column, values_only=True):
+    rownumber += 1
+for i in range(sheet9.max_row, 1, -1):
+    # Org applies filter to observe if the org has created an unknown space
+    if sheet9.cell(row=i, column=2).value != sys.argv[1]:
+        sheet9.delete_rows(i, 1)
+
 
 
 

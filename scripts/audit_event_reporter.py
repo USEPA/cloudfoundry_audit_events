@@ -217,10 +217,11 @@ def archive_all_audit_events_by_type(data, output_file):
     sheet2 = Excelworkbook.create_sheet("Route Changes", 2)
     audit_event_types = "audit.route.create,audit.route.delete-request,audit.route.update"
     write_events_to_sheet(sheet2, data, audit_event_types)
+    #start_delete and start_create are missing
 
     print("Service Instance Events...")
     sheet3 = Excelworkbook.create_sheet("Service Instance Events", 3)
-    audit_event_types = "audit.service_instance.create,audit.service_instance.bind_route,audit.service_instance.update,audit.service_instance.unbind_route,audit.service_instance.delete"
+    audit_event_types = "audit.service_instance.create,audit.service_instance.bind_route,audit.service_instance.update,audit.service_instance.unbind_route,audit.service_instance.delete,audit.service_instance.share,audit.service_instance.unshare"
     write_events_to_sheet(sheet3, data, audit_event_types)
 
     print("Service Bindings...")
@@ -232,6 +233,22 @@ def archive_all_audit_events_by_type(data, output_file):
     sheet5 = Excelworkbook.create_sheet("Service Events", 5)
     audit_event_types = "audit.service.create,audit.service.delete,audit.service.update,audit.service_binding.create,audit.service_binding.delete,service_instance.bind_route,audit.service_instance.create,audit.service_instance.delete,audit.service_instance.unbind_route,audit.service_instance.update"
     write_events_to_sheet(sheet5, data, audit_event_types)
+
+    print("App Events...")
+    sheet6 = Excelworkbook.create_sheet("App Events", 6)
+    audit_event_types = "audit.app.crash,audit.app.build.create,audit.app.create,audit.app.restage,audit.app.restart,audit.app.start,audit.app.stop,audit.app.map-route,audit.app.map-unroute"
+    write_events_to_sheet(sheet6, data, audit_event_types)
+
+    print("ssh Events...")
+    sheet7 = Excelworkbook.create_sheet("ssh Events", 7)
+    audit_event_types = "audit.app.ssh-authorized,audit.app.ssh-unauthorized"
+    write_events_to_sheet(sheet7, data, audit_event_types)
+
+    # Optional check
+    print("Space Events...")
+    sheet8 = Excelworkbook.create_sheet("Space App Events", 8)
+    audit_event_types = "audit.space.create,audit.space.delete-request,audit.space.update"
+    write_events_to_sheet(sheet8, data, audit_event_types)
 
     print()
 
