@@ -21,7 +21,7 @@ The [get events script](scripts/get_events.py) is smart enough to know when it l
 
  Navigate to the scripts folder and execute the [run script](scripts/run). If setup correctly, a:
  - YYYY-MM.json will be created in the data > organization-name folder and
- - MS Excel document will be created in the location of the audit event reporter script's output filename path
+ - MS Excel document will be created in the location of the audit event reporter script's output filename path (e.g., final-AuditReport-2022-05.xlsx)
 
 ```
 bash run

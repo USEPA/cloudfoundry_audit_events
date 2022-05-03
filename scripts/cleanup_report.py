@@ -6,7 +6,8 @@ print ('Second script argument, passing $CF_ORG: ', sys.argv[1])
 print ('Third script argument, passing $CF_SPACE: ', sys.argv[2])
 print ('Fourth script argument, passing $YYYYMM: ', sys.argv[3])
 
-path = "./AuditReport-2022-04.xlsx"
+path = "./AuditReport-"+sys.argv[3]+".xlsx"
+print ('Path: ', path)
 wb = openpyxl.load_workbook(path.strip())
 sheetlist = wb.sheetnames
 
@@ -47,6 +48,10 @@ sheet8.auto_filter.ref = sheet8.dimensions
 # Space Events - sheet9
 sheet9 = wb[sheetlist[8]]
 sheet9.auto_filter.ref = sheet9.dimensions
+
+# Org User Changes- sheet9
+sheet10 = wb[sheetlist[9]]
+sheet10.auto_filter.ref = sheet10.dimensions
 
 print("List of Sheet names: ", sheetlist)
 print("Sheet 1: ", sheet1)
@@ -127,10 +132,18 @@ for i in range(sheet9.max_row, 1, -1):
     if sheet9.cell(row=i, column=2).value != sys.argv[1]:
         sheet9.delete_rows(i, 1)
 
+# Cleanup Org User Changes - sheet10
+rownumber = 1
+for row in sheet10.iter_rows(min_row=1, max_row=sheet10.max_row, min_col=1, max_col=sheet10.max_column, values_only=True):
+    rownumber += 1
+for i in range(sheet10.max_row, 1, -1):
+    # Org applies filter to observe if the org has created an unknown space
+    if sheet10.cell(row=i, column=2).value != sys.argv[1]:
+        sheet10.delete_rows(i, 1)
 
+print("Max row after removal: ", sheet1.max_row)
 
-
-print("Creating new file: final-AuditReport"+str(sys.argv[3])+".xlsx...")
-wb.save('final-AuditReport'+str(sys.argv[3])+'.xlsx')
+print("Creating new file: final-AuditReport-"+str(sys.argv[3])+".xlsx...")
+wb.save('final-AuditReport-'+str(sys.argv[3])+'.xlsx')
 
 print("Cleanup report completed...")

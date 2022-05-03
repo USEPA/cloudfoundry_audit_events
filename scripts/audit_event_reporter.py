@@ -208,8 +208,8 @@ def archive_all_audit_events_by_type(data, output_file):
     audit_event_types = ""
     write_events_to_sheet(sheet0, data, audit_event_types)
 
-    print("User Access Changes...")
-    sheet1 = Excelworkbook.create_sheet("User Access Changes", 1)
+    print("Space User Access Changes...")
+    sheet1 = Excelworkbook.create_sheet("Space User Access Changes", 1)
     audit_event_types = "audit.user.space_developer_add,audit.user.space_developer_remove,audit.user.space_auditor_add,audit.user.space_auditor_remove,audit.user.space_manager_add,audit.user.space_manager_remove"
     write_events_to_sheet(sheet1, data, audit_event_types)
 
@@ -244,11 +244,17 @@ def archive_all_audit_events_by_type(data, output_file):
     audit_event_types = "audit.app.ssh-authorized,audit.app.ssh-unauthorized"
     write_events_to_sheet(sheet7, data, audit_event_types)
 
-    # Optional check
+    # Add/Remove spaces check
     print("Space Events...")
     sheet8 = Excelworkbook.create_sheet("Space App Events", 8)
     audit_event_types = "audit.space.create,audit.space.delete-request,audit.space.update"
     write_events_to_sheet(sheet8, data, audit_event_types)
+    
+    # Org users check
+    print("Org User Access Changes...")
+    sheet9 = Excelworkbook.create_sheet("Org User Access Changes", 9)
+    audit_event_types = "audit.user.organization_auditor_add,audit.user.organization_auditor_remove,audit.user.organization_manager_add,audit.user.organization_manager_remove,audit.user.organization_user_add,audit.user.organization_user_remove"
+    write_events_to_sheet(sheet9, data, audit_event_types)
 
     print()
 
