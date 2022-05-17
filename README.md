@@ -27,6 +27,23 @@ The [get events script](scripts/get_events.py) is smart enough to know when it l
 bash run
 ```
 
+## Get Events from the Past 31 days 
+
+To get events from the past 31 days, create a status_data.json file to the date *before* you would like the data pulled.
+
+1. In the scripts folder, create a data folder.
+2. In the data folder, create a folder named after your cloud.gov organization (e.g., org-name)
+3. In the org-name folder, copy the [status_data.json](./scripts/example-data/org-name/status_data.json) file and modify the status_data.json file to meet your event needs.
+
+If you would like to obtain event data starting 05-04-2022, then you would set the status_data.json date to 2022-05-03 (see below). 
+
+```
+{
+    "last_date_of_events_extracted": "2022-05-03",
+    "last_date_time_events_extracted": "2022-05-03T00:00:00.000000Z"
+}
+```
+
 ### Disclaimer
 
 The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use.  EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information.  Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA.  The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.
