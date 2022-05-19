@@ -19,13 +19,14 @@ The [get events script](scripts/get_events.py) is smart enough to know when it l
 
 ## Get Events and Audit Report (i.e., MS Excel document)
 
- Navigate to the scripts folder and execute the [run script](scripts/run). If setup correctly, a:
+ 1. Navigate to the scripts folder and execute the [run script](scripts/run). If setup correctly, a:
  - YYYY-MM.json will be created in the data > organization-name folder and
  - MS Excel document will be created in the location of the audit event reporter script's output filename path (e.g., final-AuditReport-2022-05.xlsx)
 
 ```
 bash run
 ```
+ 2. If you need to re-run the [run script](scripts/run), you will need to manually delete the folder named after your cloud.gov organization (e.g., org-name) within the data folder to avoid duplicating event records. 
 
 ## Get Events from the Past 31 days 
 
@@ -43,6 +44,7 @@ If you would like to obtain event data starting 05-04-2022, then you would set t
     "last_date_time_events_extracted": "2022-05-03T00:00:00.000000Z"
 }
 ```
+4.  If you need to re-run the [run script](scripts/run), you will need to manually delete the folder named after your cloud.gov organization (e.g., org-name) within the data folder to avoid duplicating event records. 
 
 ### Disclaimer
 
